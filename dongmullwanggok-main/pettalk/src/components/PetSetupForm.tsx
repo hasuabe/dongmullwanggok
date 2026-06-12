@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePetStore } from '../store/usePetStore';
-import type { AnimalType, Gender } from '../types';
+import type { AnimalType, Gender, AgeCategory } from '../types';
 import { compressImage } from '../lib/storage';
 import { Camera, Dog, Cat, Sparkles } from 'lucide-react';
 
@@ -11,6 +11,7 @@ export const PetSetupForm: React.FC = () => {
 
   const [animal, setAnimal] = useState<AnimalType>(profile?.animal || 'dog');
   const [gender, setGender] = useState<Gender>(profile?.gender || 'male');
+  const [age, setAge] = useState<AgeCategory | undefined>(profile?.age);
   const [name, setName] = useState(profile?.name || '');
   const [photoBase64, setPhotoBase64] = useState<string | undefined>(profile?.photoBase64);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +33,7 @@ export const PetSetupForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setProfile({ animal, gender, name, photoBase64 });
+    setProfile({ animal, gender, age, name, photoBase64 });
     navigate('/translate');
   };
 
@@ -146,6 +147,40 @@ export const PetSetupForm: React.FC = () => {
                   color: isSelected ? 'white' : '#5D4037',
                   transform: isSelected ? 'scale(1.04)' : 'scale(1)',
                   boxShadow: isSelected ? `0 6px 20px ${shadow}` : 'none',
+                  border: isSelected ? 'none' : '1.5px solid rgba(255,255,255,0.8)',
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Age */}
+      <div className="mb-5">
+        <label className="block text-sm font-bold mb-3" style={{ color: '#5D4037' }}>
+          나이대 <span style={{ color: '#BCAAA4', fontWeight: 400 }}>(선택)</span>
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {[
+            { value: 'baby' as const, label: '새끼 (퍼피/키튼)' },
+            { value: 'adult' as const, label: '성체 (어른)' },
+            { value: 'senior' as const, label: '노령 (시니어)' },
+          ].map(({ value, label }) => {
+            const isSelected = age === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setAge(value)}
+                id={`age-${value}`}
+                className="py-3 px-2 rounded-2xl font-bold text-[0.8rem] transition-all duration-250 leading-tight"
+                style={{
+                  background: isSelected ? '#A1887F' : 'rgba(255,255,255,0.6)',
+                  color: isSelected ? 'white' : '#5D4037',
+                  transform: isSelected ? 'scale(1.04)' : 'scale(1)',
+                  boxShadow: isSelected ? '0 4px 15px rgba(161,136,127,0.35)' : 'none',
                   border: isSelected ? 'none' : '1.5px solid rgba(255,255,255,0.8)',
                 }}
               >

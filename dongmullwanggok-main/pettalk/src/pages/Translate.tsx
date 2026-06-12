@@ -127,6 +127,13 @@ export const Translate: React.FC = () => {
           >
             {profile.gender === 'male' ? '수컷' : '암컷'}
           </span>
+          {profile.age && (
+            <span className="text-xs px-2 py-0.5 rounded-full font-semibold text-white"
+              style={{ backgroundColor: '#A1887F' }}
+            >
+              {profile.age === 'baby' ? '새끼' : profile.age === 'adult' ? '성체' : '노령'}
+            </span>
+          )}
         </div>
 
         <Link

@@ -2,11 +2,13 @@ export type AnimalType = 'dog' | 'cat';
 export type Gender = 'male' | 'female';
 export type Emotion = 'happy' | 'hungry' | 'alert' | 'lonely' | 'pain' | 'play';
 
+export type AgeCategory = 'baby' | 'adult' | 'senior';
+
 export interface PetProfile {
   animal: AnimalType;
   gender: Gender;
   name: string;
-  age?: string;
+  age?: AgeCategory;
   photoBase64?: string;
 }
 
