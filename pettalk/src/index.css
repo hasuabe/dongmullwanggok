@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary-light text-text font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white bg-opacity-70 backdrop-blur-lg border border-white border-opacity-50 shadow-sm;
+  }
+}
